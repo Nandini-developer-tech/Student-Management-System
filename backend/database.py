@@ -1,10 +1,35 @@
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# Replace with your MySQL password
-DATABASE_URL = "mysql+pymysql://root:tiger@localhost/student_management"
+# ==============================
+# Database Configuration
+# ==============================
 
-engine = create_engine(DATABASE_URL)
+DB_HOST = os.getenv("DB_HOST")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+
+# Path to Aiven CA certificate
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SSL_CERT = os.path.join(BASE_DIR, "ca.pem")
+
+DATABASE_URL = (
+    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}"
+    f"@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
+
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+    connect_args={
+        "ssl": {
+            "ca": SSL_CERT
+        }
+    }
+)
 
 SessionLocal = sessionmaker(
     autocommit=False,
