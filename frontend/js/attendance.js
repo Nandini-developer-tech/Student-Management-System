@@ -1,4 +1,5 @@
-const API_URL = "http://127.0.0.1:8000/attendance";
+const API = "https://student-management-system-1-kzyw.onrender.com";
+const API_URL = API + "/attendance";
 
 let editId = null;
 

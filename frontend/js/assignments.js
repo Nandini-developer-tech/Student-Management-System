@@ -1,4 +1,5 @@
-const API_URL = "http://127.0.0.1:8000/assignments";
+const API = "https://student-management-system-1-kzyw.onrender.com";
+const API_URL = API + "/assignments";
 
 let editId = null;
 
@@ -26,35 +27,51 @@ document.getElementById("assignmentForm").addEventListener("submit", async funct
         method = "PUT";
     }
 
-    const response = await fetch(url, {
-        method: method,
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(assignment)
-    });
+    try {
 
-    if (response.ok) {
-
-        Swal.fire({
-            icon: "success",
-            title: "Success",
-            text: editId === null
-                ? "Assignment created successfully!"
-                : "Assignment updated successfully!"
+        const response = await fetch(url, {
+            method: method,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(assignment)
         });
 
-        document.getElementById("assignmentForm").reset();
-        editId = null;
+        const data = await response.json();
 
-        loadAssignments();
+        if (response.ok) {
 
-    } else {
+            Swal.fire({
+                icon: "success",
+                title: "Success",
+                text: editId === null
+                    ? "Assignment created successfully!"
+                    : "Assignment updated successfully!"
+            });
+
+            document.getElementById("assignmentForm").reset();
+            editId = null;
+
+            loadAssignments();
+
+        } else {
+
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: data.detail || "Operation failed."
+            });
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
 
         Swal.fire({
             icon: "error",
             title: "Error",
-            text: "Operation failed."
+            text: "Unable to connect to the server."
         });
 
     }
@@ -65,46 +82,52 @@ document.getElementById("assignmentForm").addEventListener("submit", async funct
 // Load Assignments
 async function loadAssignments() {
 
-    const response = await fetch(API_URL + "/");
-    const data = await response.json();
+    try {
 
-    let rows = "";
+        const response = await fetch(API_URL + "/");
+        const data = await response.json();
 
-    data.forEach(item => {
+        let rows = "";
 
-        rows += `
-        <tr>
+        data.forEach(item => {
 
-            <td>${item.id}</td>
-            <td>${item.faculty_id}</td>
-            <td>${item.course_id}</td>
+            rows += `
+            <tr>
+                <td>${item.id}</td>
+                <td>${item.faculty_id}</td>
+                <td>${item.course_id}</td>
+                <td>
+                    <button
+                        class="btn btn-warning btn-sm"
+                        onclick="editAssignment(${item.id}, ${item.faculty_id}, ${item.course_id})">
+                        <i class="fa fa-edit"></i>
+                    </button>
 
-            <td>
+                    <button
+                        class="btn btn-danger btn-sm"
+                        onclick="deleteAssignment(${item.id})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            `;
 
-                <button
-                    class="btn btn-warning btn-sm"
-                    onclick="editAssignment(${item.id}, ${item.faculty_id}, ${item.course_id})">
+        });
 
-                    <i class="fa fa-edit"></i>
+        document.getElementById("assignmentTable").innerHTML = rows;
 
-                </button>
+    } catch (error) {
 
-                <button
-                    class="btn btn-danger btn-sm"
-                    onclick="deleteAssignment(${item.id})">
+        console.error(error);
 
-                    <i class="fa fa-trash"></i>
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Unable to load assignments."
+        });
 
-                </button>
+    }
 
-            </td>
-
-        </tr>
-        `;
-
-    });
-
-    document.getElementById("assignmentTable").innerHTML = rows;
 }
 
 
@@ -138,19 +161,41 @@ async function deleteAssignment(id) {
     if (!result.isConfirmed)
         return;
 
-    const response = await fetch(API_URL + "/" + id, {
-        method: "DELETE"
-    });
+    try {
 
-    if (response.ok) {
-
-        Swal.fire({
-            icon: "success",
-            title: "Deleted",
-            text: "Assignment deleted successfully."
+        const response = await fetch(API_URL + "/" + id, {
+            method: "DELETE"
         });
 
-        loadAssignments();
+        if (response.ok) {
+
+            Swal.fire({
+                icon: "success",
+                title: "Deleted",
+                text: "Assignment deleted successfully."
+            });
+
+            loadAssignments();
+
+        } else {
+
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Delete failed."
+            });
+
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Unable to connect to the server."
+        });
 
     }
 

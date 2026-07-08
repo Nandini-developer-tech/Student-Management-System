@@ -1,14 +1,16 @@
 console.log("Login JS Loaded");
 
-const API = "http://127.0.0.1:8000";
+// ================= BACKEND URL =================
+const API = "https://student-management-system-1-kzyw.onrender.com";
 
+// ================= LOGIN =================
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
 
     e.preventDefault();
 
     const user = {
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value
+        username: document.getElementById("username").value.trim(),
+        password: document.getElementById("password").value.trim()
     };
 
     console.log("Sending Login Request:", user);
@@ -23,14 +25,13 @@ document.getElementById("loginForm").addEventListener("submit", async function (
             body: JSON.stringify(user)
         });
 
-        console.log("Response Status:", response.status);
-
         const data = await response.json();
 
-        console.log("Response Data:", data);
+        console.log(data);
 
         if (response.ok) {
 
+            // Save Login Details
             localStorage.setItem("token", data.access_token || "");
             localStorage.setItem("username", data.username || user.username);
             localStorage.setItem("role", data.role || "Admin");
@@ -64,7 +65,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         Swal.fire({
             icon: "error",
             title: "Server Error",
-            text: "Unable to connect to the server."
+            text: "Unable to connect to the backend server."
         });
 
     }

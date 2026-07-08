@@ -1,31 +1,25 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://student-management-system-1-kzyw.onrender.com";
 
 // ================= AUTH CHECK =================
 
 const token = localStorage.getItem("token");
 
 if (!token) {
-
     window.location.href = "login.html";
-
 }
 
 // ================= USERNAME =================
 
 const username = localStorage.getItem("username");
 
-if (username) {
-
+if (username && document.getElementById("username")) {
     document.getElementById("username").innerHTML = username;
-
 }
 
 // ================= LOAD DASHBOARD =================
 
 window.onload = function () {
-
     loadDashboard();
-
 };
 
 // ================= LOAD COUNTS =================
@@ -64,18 +58,11 @@ async function loadDashboard() {
         let percentage = 0;
 
         if (attendance.length > 0) {
-
-            percentage = Math.round(
-                (present / attendance.length) * 100
-            );
-
+            percentage = Math.round((present / attendance.length) * 100);
         }
 
-        document.getElementById("attendanceCount").innerHTML =
-            percentage + "%";
-
-        document.getElementById("quickAttendance").innerHTML =
-            percentage + "%";
+        document.getElementById("attendanceCount").innerHTML = percentage + "%";
+        document.getElementById("quickAttendance").innerHTML = percentage + "%";
 
         createChart(
             students.length,
@@ -83,20 +70,14 @@ async function loadDashboard() {
             courses.length
         );
 
-    }
+    } catch (error) {
 
-    catch (error) {
-
-        console.log(error);
+        console.error(error);
 
         Swal.fire({
-
             icon: "error",
-
             title: "Error",
-
             text: "Unable to load dashboard."
-
         });
 
     }
@@ -116,29 +97,18 @@ function createChart(studentCount, facultyCount, courseCount) {
         data: {
 
             labels: [
-
                 "Students",
-
                 "Faculty",
-
                 "Courses"
-
             ],
 
             datasets: [{
-
                 label: "Management Statistics",
-
                 data: [
-
                     studentCount,
-
                     facultyCount,
-
                     courseCount
-
                 ]
-
             }]
 
         },
@@ -150,9 +120,7 @@ function createChart(studentCount, facultyCount, courseCount) {
             plugins: {
 
                 legend: {
-
                     display: true
-
                 }
 
             }

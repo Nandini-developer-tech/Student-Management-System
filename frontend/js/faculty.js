@@ -1,11 +1,31 @@
-const API = "http://127.0.0.1:8000";
+// ================= API =================
+const API = "https://student-management-system-1-kzyw.onrender.com";
 
-// Load all faculty
+// ================= AUTH =================
+const token = localStorage.getItem("token");
+
+if (!token) {
+    window.location.href = "login.html";
+}
+
+// ================= USERNAME =================
+const username = localStorage.getItem("username");
+
+if (document.getElementById("username")) {
+    document.getElementById("username").innerText =
+        username ? "Welcome, " + username : "Admin";
+}
+
+// ================= LOAD FACULTY =================
 async function loadFaculty() {
 
     try {
 
-        const response = await fetch(API + "/faculty/");
+        const response = await fetch(API + "/faculty/", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
 
         const faculty = await response.json();
 
@@ -19,17 +39,25 @@ async function loadFaculty() {
                     <td>${item.faculty_name}</td>
                     <td>${item.email}</td>
                     <td>${item.department}</td>
+
                     <td>
+
                         <button class="btn btn-warning btn-sm me-2"
-                                onclick="editFaculty(${item.id})">
+                            onclick="editFaculty(${item.id})">
+
                             <i class="fa fa-edit"></i>
+
                         </button>
 
                         <button class="btn btn-danger btn-sm"
-                                onclick="deleteFaculty(${item.id})">
+                            onclick="deleteFaculty(${item.id})">
+
                             <i class="fa fa-trash"></i>
+
                         </button>
+
                     </td>
+
                 </tr>
             `;
 
@@ -37,7 +65,9 @@ async function loadFaculty() {
 
         document.getElementById("facultyTable").innerHTML = rows;
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(error);
 
@@ -51,16 +81,13 @@ async function loadFaculty() {
 
 }
 
-
-// Add Faculty
+// ================= ADD FACULTY =================
 async function addFaculty() {
 
     const faculty = {
 
         faculty_name: document.getElementById("faculty_name").value,
-
         email: document.getElementById("email").value,
-
         department: document.getElementById("department").value
 
     };
@@ -73,7 +100,8 @@ async function addFaculty() {
 
             headers: {
 
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
 
             },
 
@@ -95,23 +123,29 @@ async function addFaculty() {
             document.getElementById("email").value = "";
             document.getElementById("department").value = "";
 
-            bootstrap.Modal.getInstance(
+            const modal = bootstrap.Modal.getInstance(
                 document.getElementById("facultyModal")
-            ).hide();
+            );
+
+            if (modal) modal.hide();
 
             loadFaculty();
 
-        } else {
+        }
+
+        else {
 
             Swal.fire(
                 "Error",
-                data.detail,
+                data.detail || "Unable to add faculty.",
                 "error"
             );
 
         }
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.error(error);
 
@@ -125,46 +159,69 @@ async function addFaculty() {
 
 }
 
-
-// Delete Faculty
+// ================= DELETE FACULTY =================
 async function deleteFaculty(id) {
 
-    if (!confirm("Delete this faculty?")) return;
+    const result = await Swal.fire({
 
-    await fetch(API + "/faculty/" + id, {
-
-        method: "DELETE"
+        title: "Delete Faculty?",
+        text: "This action cannot be undone.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete"
 
     });
 
-    loadFaculty();
+    if (!result.isConfirmed) return;
+
+    try {
+
+        await fetch(API + "/faculty/" + id, {
+
+            method: "DELETE",
+
+            headers: {
+
+                "Authorization": "Bearer " + token
+
+            }
+
+        });
+
+        Swal.fire(
+            "Deleted",
+            "Faculty deleted successfully.",
+            "success"
+        );
+
+        loadFaculty();
+
+    }
+
+    catch (error) {
+
+        Swal.fire(
+            "Error",
+            "Unable to delete faculty.",
+            "error"
+        );
+
+    }
 
 }
 
-
-// Edit Faculty
+// ================= EDIT FACULTY =================
 function editFaculty(id) {
 
     Swal.fire(
         "Coming Soon",
-        "Edit Faculty will be implemented next.",
+        "Edit Faculty module will be implemented next.",
         "info"
     );
 
 }
 
-
-// Logout
-function logout() {
-
-    localStorage.clear();
-
-    window.location.href = "login.html";
-
-}
-
-
-// Search Faculty
+// ================= SEARCH =================
 document.getElementById("search").addEventListener("keyup", function () {
 
     const value = this.value.toLowerCase();
@@ -173,28 +230,16 @@ document.getElementById("search").addEventListener("keyup", function () {
 
     rows.forEach(row => {
 
-        row.style.display = row.innerText.toLowerCase().includes(value)
-            ? ""
-            : "none";
+        row.style.display =
+            row.innerText.toLowerCase().includes(value)
+                ? ""
+                : "none";
 
     });
 
 });
 
-// ---------------- USERNAME ----------------
-
-const username = localStorage.getItem("username");
-
-if (document.getElementById("username")) {
-
-    document.getElementById("username").innerText =
-        username ? "Welcome, " + username : "Admin";
-
-}
-
-
-// ---------------- LOGOUT ----------------
-
+// ================= LOGOUT =================
 function logout() {
 
     localStorage.clear();
@@ -203,6 +248,5 @@ function logout() {
 
 }
 
-
-// Load Faculty
+// ================= LOAD PAGE =================
 loadFaculty();

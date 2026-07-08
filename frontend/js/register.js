@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://student-management-system-1-kzyw.onrender.com";
 
 document.getElementById("registerForm").addEventListener("submit", async function(e){
 

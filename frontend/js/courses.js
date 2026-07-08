@@ -1,4 +1,4 @@
-const API = "http://127.0.0.1:8000";
+const API = "https://student-management-system-1-kzyw.onrender.com";
 
 // Load all courses
 async function loadCourses() {
@@ -6,7 +6,6 @@ async function loadCourses() {
     try {
 
         const response = await fetch(API + "/courses/");
-
         const courses = await response.json();
 
         let rows = "";
@@ -62,9 +61,7 @@ async function loadCourses() {
 }
 
 
-
 // Add Course
-
 async function addCourse() {
 
     const course = {
@@ -84,9 +81,7 @@ async function addCourse() {
             method: "POST",
 
             headers: {
-
                 "Content-Type": "application/json"
-
             },
 
             body: JSON.stringify(course)
@@ -119,7 +114,7 @@ async function addCourse() {
 
             Swal.fire(
                 "Error",
-                data.detail,
+                data.detail || "Unable to add course.",
                 "error"
             );
 
@@ -142,9 +137,7 @@ async function addCourse() {
 }
 
 
-
 // Delete Course
-
 async function deleteCourse(id) {
 
     const result = await Swal.fire({
@@ -164,26 +157,52 @@ async function deleteCourse(id) {
     if (!result.isConfirmed)
         return;
 
-    await fetch(API + "/courses/" + id, {
+    try {
 
-        method: "DELETE"
+        const response = await fetch(API + "/courses/" + id, {
 
-    });
+            method: "DELETE"
 
-    Swal.fire(
-        "Deleted",
-        "Course deleted successfully.",
-        "success"
-    );
+        });
 
-    loadCourses();
+        if (response.ok) {
+
+            Swal.fire(
+                "Deleted",
+                "Course deleted successfully.",
+                "success"
+            );
+
+            loadCourses();
+
+        } else {
+
+            Swal.fire(
+                "Error",
+                "Unable to delete course.",
+                "error"
+            );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        Swal.fire(
+            "Error",
+            "Server connection failed.",
+            "error"
+        );
+
+    }
 
 }
 
 
-
 // Edit Course
-
 function editCourse(id) {
 
     Swal.fire(
@@ -195,9 +214,7 @@ function editCourse(id) {
 }
 
 
-
 // Search
-
 document.getElementById("search").addEventListener("keyup", function () {
 
     const value = this.value.toLowerCase();
@@ -215,19 +232,7 @@ document.getElementById("search").addEventListener("keyup", function () {
 });
 
 
-
-// Logout
-
-function logout() {
-
-    localStorage.clear();
-
-    window.location.href = "login.html";
-
-}
-
-// ---------------- USERNAME ----------------
-
+// USERNAME
 const username = localStorage.getItem("username");
 
 if (document.getElementById("username")) {
@@ -238,8 +243,7 @@ if (document.getElementById("username")) {
 }
 
 
-// ---------------- LOGOUT ----------------
-
+// LOGOUT
 function logout() {
 
     localStorage.clear();
