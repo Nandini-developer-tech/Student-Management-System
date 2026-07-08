@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Management System - Login</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+    <div class="row vh-100">
+
+        <!-- Left Side -->
+
+        <div class="col-lg-7 left-side">
+
+            <div class="overlay">
+
+                <h1>🎓 Student Management System</h1>
+
+                <p class="mt-3">
+                    Manage Students, Faculty, Courses and Attendance
+                    using one modern dashboard.
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Login Card -->
+
+        <div class="col-lg-5 d-flex align-items-center justify-content-center">
+
+            <div class="login-card shadow">
+
+                <h2 class="text-center mb-4">
+
+                    <i class="fa-solid fa-user-graduate text-primary"></i>
+
+                    Login
+
+                </h2>
+
+                <form id="loginForm">
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Username
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="username"
+                            class="form-control"
+                            placeholder="Enter Username"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Password
+
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            placeholder="Enter Password"
+                            required>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary w-100">
+
+                        <i class="fa-solid fa-right-to-bracket"></i>
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <hr>
+
+                <p class="text-center mb-1">
+
+                    Don't have an account?
+
+                </p>
+
+                <div class="text-center">
+
+                    <a href="register.html" class="btn btn-outline-success">
+
+                        <i class="fa-solid fa-user-plus"></i>
+
+                        Register Here
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Login JS -->
+<script src="js/login.js"></script>
+
+</body>
+
+</html>

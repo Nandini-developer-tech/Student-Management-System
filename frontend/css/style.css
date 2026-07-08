@@ -1,0 +1,200 @@
+body{
+
+margin:0;
+
+padding:0;
+
+font-family:Arial, Helvetica, sans-serif;
+
+background:#f4f6f9;
+
+}
+
+
+.left-side{
+
+background:linear-gradient(135deg,#0d6efd,#6610f2);
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:white;
+
+}
+
+
+.overlay{
+
+padding:50px;
+
+text-align:center;
+
+}
+
+
+.overlay h1{
+
+font-size:50px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+}
+
+
+.overlay p{
+
+font-size:20px;
+
+}
+
+
+.login-card{
+
+background:white;
+
+padding:40px;
+
+width:400px;
+
+border-radius:20px;
+
+animation:fadeIn 1s;
+
+}
+
+
+.login-card h2{
+
+font-weight:bold;
+
+color:#0d6efd;
+
+}
+
+
+.form-control{
+
+height:50px;
+
+}
+
+
+.btn{
+
+height:50px;
+
+font-size:18px;
+
+}
+
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(30px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+/* ============================= */
+/* Attendance Management Styles  */
+/* ============================= */
+
+.container {
+    margin-top: 40px;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-body {
+    background: #ffffff;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px;
+}
+
+.btn-success {
+    margin-top: 15px;
+    border-radius: 8px;
+    padding: 10px 20px;
+}
+
+.btn-primary,
+.btn-warning,
+.btn-danger {
+    border-radius: 6px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+@media (max-width: 768px) {
+
+    .login-card {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .overlay h1 {
+        font-size: 36px;
+    }
+
+    .overlay p {
+        font-size: 16px;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+
+    .table {
+        font-size: 14px;
+    }
+}
