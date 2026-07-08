@@ -273,3 +273,15 @@ Please give this repository a ⭐ on GitHub.
 ## 📄 License
 
 This project is developed for educational and learning purposes.
+
+
+## 🚀 Live Demo
+
+### Frontend
+🔗 https://student-management-frontend-cvsy.onrender.com/login.html
+
+### Backend API
+🔗 https://student-management-system-1-kzyw.onrender.com
+
+### API Documentation (Swagger)
+🔗 https://student-management-system-1-kzyw.onrender.com/docs
