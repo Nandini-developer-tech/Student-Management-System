@@ -6,7 +6,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 
 ## 🚀 Features
 
-### 🔐 Authentication
+### 🔐 Authentication   
 - User Registration
 - User Login
 - Logout
