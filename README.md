@@ -10,7 +10,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 - User Registration
 - User Login
 - Logout
-- Session Management using Local Storage
+- Session Management using Local Storage   
 
 ### 👨‍🎓 Student Management
 - Add Student
