@@ -7,7 +7,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 ## 🚀 Features
 
 ### 🔐 Authentication         
-- User Registration
+- User Registration   
 - User Login
 - Logout
 - Session Management using Local Storage   
