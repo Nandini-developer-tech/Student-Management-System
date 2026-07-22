@@ -1,7 +1,7 @@
 # 🎓 Student Management System   
 
 A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy**, **MySQL**, **HTML**, **CSS**, **Bootstrap**, and **JavaScript**. This application helps manage students, faculty, courses, attendance, and user authentication through a modern web interface.  
-
+     
 ---
 
 ## 🚀 Features
