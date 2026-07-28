@@ -18,7 +18,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 - Update Student
 - Delete Student
 - Search Students
-- Import Students using CSV
+- Import Students using CSV   
 
 ### 👨‍🏫 Faculty Management   
 - Add Faculty
