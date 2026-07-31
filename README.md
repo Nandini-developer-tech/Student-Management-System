@@ -14,7 +14,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 
 ### 👨‍🎓 Student Management
 - Add Student
-- View Students
+- View Students  
 - Update Student
 - Delete Student
 - Search Students
