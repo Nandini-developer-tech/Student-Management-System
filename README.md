@@ -20,7 +20,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 - Search Students
 - Import Students using CSV   
 
-### 👨‍🏫 Faculty Management   
+### 👨‍🏫 Faculty Management     
 - Add Faculty
 - View Faculty
 - Update Faculty
