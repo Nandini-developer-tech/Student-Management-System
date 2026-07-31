@@ -27,7 +27,7 @@ A full-stack Student Management System developed using **FastAPI**, **SQLAlchemy
 - Delete Faculty
 - Search Faculty
 
-### 📚 Course Management
+### 📚 Course Management  
 - Add Course
 - View Courses
 - Update Course
